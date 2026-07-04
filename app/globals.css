@@ -157,7 +157,7 @@ body {
   background: var(--base);
   color: var(--text);
   font-family: var(--ui-font);
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -928,7 +928,7 @@ input, textarea {
 .cm-editor {
   height: 100%;
   font-family: var(--editor-font) !important;
-  font-size: var(--editor-font-size) !important;
+  font-size: 1rem !important;
   background: var(--editor-bg) !important;
 }
 
