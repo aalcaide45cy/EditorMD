@@ -37,8 +37,9 @@ export function ScaleProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const applyScale = (s: number) => {
-    document.documentElement.style.setProperty('--ui-scale', `${s / 100}`);
-    document.documentElement.style.fontSize = `${s}%`;
+    // CSS zoom scales EVERYTHING: px values, layout, fonts, borders — unlike font-size
+    (document.documentElement.style as any).zoom = String(s / 100);
+    document.documentElement.style.setProperty('--ui-scale', String(s / 100));
   };
 
   const setScale = (s: number) => {

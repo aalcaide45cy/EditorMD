@@ -241,21 +241,22 @@ input, textarea {
 }
 
 .topbar-logo {
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, var(--accent), var(--mauve));
-  border-radius: 7px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #7c6af7, #cba6f7);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(124, 106, 247, 0.3);
+  box-shadow: 0 0 12px rgba(124, 106, 247, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .topbar-logo svg {
-  color: white;
-  width: 16px;
-  height: 16px;
+  color: #ffffff !important;
+  width: 17px;
+  height: 17px;
 }
 
 .topbar-title {
