@@ -123,10 +123,10 @@
    SHARED LAYOUT TOKENS (theme-independent)
    ============================================================ */
 :root {
-  --sidebar-width: 260px;
-  --topbar-height: 48px;
-  --statusbar-height: 26px;
-  --toolbar-height: 40px;
+  --sidebar-width: calc(260px * var(--ui-scale, 1));
+  --topbar-height: calc(48px * var(--ui-scale, 1));
+  --statusbar-height: calc(26px * var(--ui-scale, 1));
+  --toolbar-height: calc(40px * var(--ui-scale, 1));
   --ui-scale: 1;
 
   /* Typography */
