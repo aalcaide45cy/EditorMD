@@ -32,11 +32,14 @@ export function TopBar() {
   return (
     <header className="topbar">
       {/* Brand */}
-      <div className="topbar-brand">
-        <div className="topbar-logo" aria-hidden="true">
-          <FileText style={{ width: 16, height: 16, color: 'white', strokeWidth: 2.5 }} />
+      <div className="topbar-brand" title="EditorMD — Capa Cero">
+        <div className="topbar-logo" aria-hidden="true" style={{ background: 'none', border: 'none', boxShadow: 'none', width: 32, height: 32 }}>
+          <img src="/logo.svg" alt="Logo Capa Cero" style={{ width: '100%', height: '100%' }} />
         </div>
-        <span className="topbar-title">EditorMD</span>
+        <span className="topbar-title" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
+          <span style={{ fontSize: '1rem', fontWeight: 800 }}>Capa Cero</span>
+          <span style={{ fontSize: '0.65rem', fontWeight: 500, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Editor MD</span>
+        </span>
       </div>
 
       {/* Sidebar toggle */}
