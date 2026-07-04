@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const SCALE_STEPS = [80, 90, 100, 110, 120, 135, 150];
+const SCALE_STEPS = [80, 90, 100, 110, 120, 135, 150, 170, 200];
 const DEFAULT_SCALE = 100;
 
 interface ScaleContextValue {
