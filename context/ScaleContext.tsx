@@ -37,9 +37,9 @@ export function ScaleProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const applyScale = (s: number) => {
-    // Revert zoom, scale layout and font size fluidly via root variables
+    // Set a custom property to scale only the text and icon elements in layout and code editor
     document.documentElement.style.setProperty('--ui-scale', String(s / 100));
-    document.documentElement.style.fontSize = `${14 * (s / 100)}px`;
+    document.documentElement.style.setProperty('--ui-font-size', `${14 * (s / 100)}px`);
   };
 
   const setScale = (s: number) => {

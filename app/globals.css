@@ -157,7 +157,7 @@ body {
   background: var(--base);
   color: var(--text);
   font-family: var(--ui-font);
-  font-size: 1rem;
+  font-size: var(--ui-font-size, 14px);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -928,7 +928,7 @@ input, textarea {
 .cm-editor {
   height: 100%;
   font-family: var(--editor-font) !important;
-  font-size: 1rem !important;
+  font-size: var(--ui-font-size, 14px) !important;
   background: var(--editor-bg) !important;
 }
 
@@ -1009,7 +1009,7 @@ input, textarea {
 .markdown-body {
   color: var(--text);
   line-height: 1.75;
-  font-size: 15px;
+  font-size: calc(1.07 * var(--ui-font-size, 14px));
   font-family: var(--ui-font);
 }
 
