@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EditorMD
 
-## Getting Started
+> Editor de Markdown serverless, elegante e inspirado en [Joplin](https://joplinapp.org/), construido con Next.js para desplegarse en Vercel.
 
-First, run the development server:
+![Screenshot](./public/next.svg)
+
+## ✨ Características
+
+- **Editor potente** — CodeMirror 6 con syntax highlighting de Markdown en tiempo real
+- **Vista Split / Editor / Preview** — Como Joplin desktop
+- **Abrir archivos individuales** — File System Access API (Chrome/Edge) o input fallback
+- **Abrir carpetas completas** — Explorar y editar todos los `.md` de una carpeta con árbol colapsable
+- **Guardar directamente** — Escribe de vuelta al archivo original en disco (no descarga)
+- **Arrastrar & soltar** — Drag & drop de archivos `.md` directamente al editor
+- **Caché localStorage** — Los documentos abiertos se preservan en sesión local (no se envía nada al servidor)
+- **Múltiples documentos** — Gestión de varios archivos abiertos simultáneamente
+- **Barra de herramientas** — Negrita, cursiva, headings, listas, código, tablas, citas...
+- **Markdown completo** — GFM, tablas, listas de tareas, LaTeX/KaTeX, bloques de código con highlighting
+- **Atajos de teclado** — Ctrl+O, Ctrl+Shift+O, Ctrl+S, Ctrl+N, Ctrl+B, Ctrl+I...
+- **100% Serverless** — Ningún dato abandona tu equipo
+
+## 🎨 Diseño
+
+Tema oscuro premium inspirado en la paleta **Catppuccin Macchiato**, con accentos en violeta/lavanda, tipografía Inter + JetBrains Mono, y micro-animaciones.
+
+## 🚀 Deploy en Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/aalcaide45cy/EditorMD)
+
+## 💻 Desarrollo local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⌨️ Atajos de teclado
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Shortcut | Acción |
+|---|---|
+| `Ctrl+O` | Abrir archivo |
+| `Ctrl+Shift+O` | Abrir carpeta |
+| `Ctrl+S` | Guardar |
+| `Ctrl+Shift+S` | Guardar como |
+| `Ctrl+N` | Nuevo documento |
+| `Ctrl+\` | Toggle sidebar |
+| `Ctrl+B` | Negrita |
+| `Ctrl+I` | Cursiva |
+| `Ctrl+\`` | Código inline |
+| `Alt+1/2/3` | Editor / Split / Preview |
 
-## Learn More
+## 🌐 Compatibilidad de navegadores
 
-To learn more about Next.js, take a look at the following resources:
+| Función | Chrome/Edge | Firefox | Safari |
+|---|---|---|---|
+| Abrir archivo | ✅ File System API | ✅ fallback | ✅ fallback |
+| Abrir carpeta | ✅ File System API | ✅ webkitdirectory | ⚠️ parcial |
+| Guardar directamente | ✅ File System API | ⬇️ descarga | ⬇️ descarga |
+| Drag & drop | ✅ | ✅ | ✅ |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js 16** (App Router)
+- **CodeMirror 6** — editor
+- **react-markdown** — preview
+- **remark-gfm, remark-math** — extensiones Markdown
+- **rehype-highlight, rehype-katex** — código y matemáticas
+- **lucide-react** — iconos
+- **Vanilla CSS** — sin frameworks CSS
 
-## Deploy on Vercel
+## 🔒 Privacidad
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Todo el procesamiento ocurre **en el navegador**. Ningún archivo se envía a ningún servidor. El caché localStorage es local a tu dispositivo.
