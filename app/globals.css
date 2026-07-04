@@ -1471,3 +1471,51 @@ input, textarea {
 [data-theme="light"] .hljs-keyword { color: var(--mauve) !important; }
 [data-theme="light"] .hljs-string { color: var(--green) !important; }
 [data-theme="light"] .hljs-comment { color: var(--overlay1) !important; }
+
+/* ============================================================
+   TOOLBAR DROPDOWNS
+   ============================================================ */
+.toolbar-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: var(--mantle);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+}
+
+.dropdown-row-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 0.86rem;
+  color: var(--subtext1);
+  text-align: left;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dropdown-row-btn:hover {
+  background: var(--surface0);
+  color: var(--text);
+}
+
+.emoji-item:hover {
+  background: var(--surface0);
+}
+
+.color-dot-btn {
+  transition: transform var(--transition);
+}
+
+.color-dot-btn:hover {
+  transform: scale(1.15);
+}
+
