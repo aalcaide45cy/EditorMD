@@ -33,12 +33,12 @@ export function TopBar() {
     <header className="topbar">
       {/* Brand */}
       <div className="topbar-brand" title="EditorMD — Capa Cero">
-        <div className="topbar-logo" aria-hidden="true" style={{ background: 'none', border: 'none', boxShadow: 'none', width: 32, height: 32 }}>
+        <div className="topbar-logo" aria-hidden="true" style={{ background: 'none', border: 'none', boxShadow: 'none', width: '32px', height: '32px' }}>
           <img src="/logo.svg" alt="Logo Capa Cero" style={{ width: '100%', height: '100%' }} />
         </div>
         <span className="topbar-title" style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
-          <span style={{ fontSize: '1rem', fontWeight: 800 }}>Capa Cero</span>
-          <span style={{ fontSize: '0.65rem', fontWeight: 500, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Editor MD</span>
+          <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--text)' }}>Capa Cero</span>
+          <span style={{ fontSize: '0.65rem', fontWeight: 500, color: 'var(--overlay1)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Editor MD</span>
         </span>
       </div>
 

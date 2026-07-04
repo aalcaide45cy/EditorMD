@@ -710,7 +710,6 @@ input, textarea {
   padding: 0 8px;
   gap: 2px;
   flex-shrink: 0;
-  overflow-x: auto;
   position: relative;
   z-index: 200;
 }
