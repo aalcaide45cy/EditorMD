@@ -51,10 +51,17 @@ export function createFile(
   };
 }
 
-export function createNewFile(nameOverride?: string): EditorFile {
-  const name = nameOverride || 'Sin título.md';
-  const content = '';
-  return createFile(name, content);
+export function createNewFile(existingFiles?: EditorFile[]): EditorFile {
+  // Find next available "Sin título N.md" name
+  let n = 1;
+  if (existingFiles && existingFiles.length > 0) {
+    const untitledNames = new Set(existingFiles.map(f => f.name));
+    while (untitledNames.has(n === 1 ? 'Sin título.md' : `Sin título ${n}.md`)) {
+      n++;
+    }
+  }
+  const name = n === 1 ? 'Sin título.md' : `Sin título ${n}.md`;
+  return createFile(name, '', name);
 }
 
 export function updateFileStats(file: EditorFile, newContent: string): Partial<EditorFile> {

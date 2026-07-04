@@ -2,7 +2,15 @@
 
 import { useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
 import { EditorState } from '@codemirror/state';
-import { EditorView, keymap, lineNumbers, highlightActiveLineGutter, drawSelection, rectangularSelection, highlightActiveLine } from '@codemirror/view';
+import {
+  EditorView,
+  keymap,
+  lineNumbers,
+  highlightActiveLineGutter,
+  drawSelection,
+  rectangularSelection,
+  highlightActiveLine,
+} from '@codemirror/view';
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown';
 import { languages } from '@codemirror/language-data';
@@ -11,6 +19,35 @@ import { useEditor } from '@/context/EditorContext';
 export interface EditorPaneRef {
   insert: (before: string, after: string, placeholder: string) => void;
   focus: () => void;
+}
+
+// Lazy-load turndown to avoid SSR issues
+let getTurndown: () => Promise<any>;
+if (typeof window !== 'undefined') {
+  getTurndown = () =>
+    import('turndown').then(m => {
+      const TurndownService = m.default;
+      const td = new TurndownService({
+        headingStyle: 'atx',
+        bulletListMarker: '-',
+        codeBlockStyle: 'fenced',
+        strongDelimiter: '**',
+        emDelimiter: '_',
+      });
+      // GFM: task list items
+      td.addRule('taskListItem', {
+        filter(node: HTMLElement) {
+          return (
+            (node as HTMLInputElement).type === 'checkbox' &&
+            node.parentNode?.nodeName === 'LI'
+          );
+        },
+        replacement(_content: string, node: HTMLElement) {
+          return (node as HTMLInputElement).checked ? '[x] ' : '[ ] ';
+        },
+      });
+      return td;
+    });
 }
 
 export const EditorPane = forwardRef<EditorPaneRef, {}>(function EditorPane(_props, ref) {
@@ -60,6 +97,46 @@ export const EditorPane = forwardRef<EditorPaneRef, {}>(function EditorPane(_pro
       }
     });
 
+    // HTML→Markdown paste handler
+    const pasteExtension = EditorView.domEventHandlers({
+      paste(event, view) {
+        const clipboardData = event.clipboardData;
+        if (!clipboardData) return false;
+
+        const html = clipboardData.getData('text/html');
+        if (html && getTurndown) {
+          event.preventDefault();
+          // Process HTML→Markdown asynchronously, then insert
+          getTurndown()
+            .then((td: any) => {
+              const cleanHtml = html.replace(
+                /<html[^>]*>|<\/html>|<head>[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi,
+                ''
+              );
+              const mdText = td.turndown(cleanHtml);
+              const { from, to } = view.state.selection.main;
+              view.dispatch({
+                changes: { from, to, insert: mdText },
+                selection: { anchor: from + mdText.length },
+              });
+            })
+            .catch(() => {
+              // If turndown fails, insert plain text as fallback
+              const plain = clipboardData.getData('text/plain');
+              if (plain) {
+                const { from, to } = view.state.selection.main;
+                view.dispatch({
+                  changes: { from, to, insert: plain },
+                  selection: { anchor: from + plain.length },
+                });
+              }
+            });
+          return true;
+        }
+        return false;
+      },
+    });
+
     const state = EditorState.create({
       doc: content,
       extensions: [
@@ -77,7 +154,8 @@ export const EditorPane = forwardRef<EditorPaneRef, {}>(function EditorPane(_pro
         ]),
         EditorView.lineWrapping,
         updateListener,
-        // Keyboard shortcuts inside editor
+        pasteExtension,
+        // In-editor keyboard shortcuts
         keymap.of([
           {
             key: 'Ctrl-b',

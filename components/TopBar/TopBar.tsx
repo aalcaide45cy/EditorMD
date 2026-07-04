@@ -1,7 +1,9 @@
 'use client';
 
-import { FileText, Save, FolderOpen, File, Plus, PanelLeftClose, PanelLeft } from 'lucide-react';
+import { Sun, Moon, FileText, Save, FolderOpen, File, Plus, PanelLeftClose, PanelLeft } from 'lucide-react';
 import { useEditor } from '@/context/EditorContext';
+import { useTheme } from '@/context/ThemeContext';
+import { useScale } from '@/context/ScaleContext';
 
 const VIEW_MODES = [
   { key: 'editor', label: 'Editor' },
@@ -22,14 +24,17 @@ export function TopBar() {
     setViewMode,
   } = useEditor();
 
+  const { theme, toggleTheme } = useTheme();
+  const { scale, increaseScale, decreaseScale, resetScale, canIncrease, canDecrease } = useScale();
+
   const hasFSA = typeof window !== 'undefined' && 'showOpenFilePicker' in window;
 
   return (
     <header className="topbar">
       {/* Brand */}
       <div className="topbar-brand">
-        <div className="topbar-logo">
-          <FileText />
+        <div className="topbar-logo" aria-hidden="true">
+          <FileText style={{ width: 16, height: 16, color: 'white', strokeWidth: 2.5 }} />
         </div>
         <span className="topbar-title">EditorMD</span>
       </div>
@@ -40,6 +45,7 @@ export function TopBar() {
         onClick={() => dispatch({ type: 'TOGGLE_SIDEBAR' })}
         title={state.sidebarOpen ? 'Ocultar sidebar (Ctrl+\\)' : 'Mostrar sidebar (Ctrl+\\)'}
         id="btn-toggle-sidebar"
+        aria-label={state.sidebarOpen ? 'Ocultar panel lateral' : 'Mostrar panel lateral'}
       >
         {state.sidebarOpen ? <PanelLeftClose /> : <PanelLeft />}
       </button>
@@ -48,7 +54,7 @@ export function TopBar() {
 
       {/* Active file name */}
       {activeFile ? (
-        <span className={`topbar-file-name${activeFile.isDirty ? ' unsaved' : ''}`}>
+        <span className={`topbar-file-name${activeFile.isDirty ? ' unsaved' : ''}`} title={activeFile.path}>
           {activeFile.name}
           {!hasFSA && activeFile.isDirty && (
             <span style={{ fontSize: 10, color: 'var(--overlay0)', marginLeft: 4 }}>
@@ -79,19 +85,19 @@ export function TopBar() {
 
       {/* Actions */}
       <div className="topbar-actions">
-        <button className="topbar-btn" onClick={newFile} title="Nuevo documento" id="btn-new">
+        <button className="topbar-btn" onClick={newFile} title="Nuevo documento (Ctrl+N)" id="btn-new">
           <Plus />
           <span>Nuevo</span>
           <span className="shortcut">Ctrl+N</span>
         </button>
 
-        <button className="topbar-btn" onClick={openFile} title="Abrir archivo" id="btn-open-file">
+        <button className="topbar-btn" onClick={openFile} title="Abrir archivo (Ctrl+O)" id="btn-open-file">
           <File />
           <span>Abrir</span>
           <span className="shortcut">Ctrl+O</span>
         </button>
 
-        <button className="topbar-btn" onClick={openFolder} title="Abrir carpeta" id="btn-open-folder">
+        <button className="topbar-btn" onClick={openFolder} title="Abrir carpeta (Ctrl+Shift+O)" id="btn-open-folder">
           <FolderOpen />
           <span>Carpeta</span>
           <span className="shortcut">Ctrl+⇧+O</span>
@@ -101,12 +107,11 @@ export function TopBar() {
           <>
             <div className="topbar-divider" />
             <button
-              className={`topbar-btn primary${!activeFile.isDirty ? ' disabled' : ''}`}
+              className="topbar-btn primary"
               onClick={() => saveFile()}
-              title={`Guardar${hasFSA ? ' en disco' : ' (descarga)'}`}
+              title={`Guardar${hasFSA ? ' en disco' : ' (descarga)'} (Ctrl+S)`}
               id="btn-save"
-              disabled={!activeFile.isDirty}
-              style={{ opacity: activeFile.isDirty ? 1 : 0.5 }}
+              style={{ opacity: activeFile.isDirty ? 1 : 0.6 }}
             >
               <Save />
               <span>Guardar</span>
@@ -114,6 +119,53 @@ export function TopBar() {
             </button>
           </>
         )}
+
+        <div className="topbar-divider" />
+
+        {/* UI Scale controls */}
+        <div className="scale-controls" role="group" aria-label="Escala de interfaz" title="Ajustar tamaño de la interfaz">
+          <button
+            className="scale-btn"
+            onClick={decreaseScale}
+            disabled={!canDecrease}
+            id="btn-scale-down"
+            aria-label="Reducir escala"
+            title="Reducir tamaño"
+          >
+            −
+          </button>
+          <button
+            className="scale-label"
+            onClick={resetScale}
+            id="btn-scale-reset"
+            aria-label={`Escala actual ${scale}%. Clic para restablecer`}
+            title="Restablecer al 100%"
+            style={{ cursor: scale !== 100 ? 'pointer' : 'default', background: 'none', border: 'none' }}
+          >
+            {scale}%
+          </button>
+          <button
+            className="scale-btn"
+            onClick={increaseScale}
+            disabled={!canIncrease}
+            id="btn-scale-up"
+            aria-label="Aumentar escala"
+            title="Aumentar tamaño"
+          >
+            +
+          </button>
+        </div>
+
+        {/* Theme toggle */}
+        <button
+          className="theme-toggle-btn"
+          onClick={toggleTheme}
+          id="btn-theme-toggle"
+          aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+          title={theme === 'dark' ? 'Modo claro' : 'Modo oscuro'}
+        >
+          {theme === 'dark' ? <Sun /> : <Moon />}
+        </button>
       </div>
     </header>
   );

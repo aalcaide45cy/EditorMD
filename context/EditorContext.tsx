@@ -27,10 +27,13 @@ const initialState: EditorState = {
 function editorReducer(state: EditorState, action: EditorAction): EditorState {
   switch (action.type) {
     case 'ADD_FILE': {
-      // Don't add duplicate by path
-      const existing = state.files.find(f => f.path === action.payload.path);
-      if (existing) {
-        return { ...state, activeFileId: existing.id };
+      // Only deduplicate files that have a real disk handle (opened from filesystem)
+      // New in-memory files can be created freely (no handle = no path dedup)
+      if (action.payload.handle) {
+        const existing = state.files.find(f => f.path === action.payload.path);
+        if (existing) {
+          return { ...state, activeFileId: existing.id };
+        }
       }
       return {
         ...state,
@@ -362,9 +365,9 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
   }, [state.files, state.activeFileId]);
 
   const newFile = useCallback(() => {
-    const file = createNewFile();
+    const file = createNewFile(state.files);
     dispatch({ type: 'ADD_FILE', payload: file });
-  }, []);
+  }, [state.files]);
 
   const closeFile = useCallback((fileId: string) => {
     dispatch({ type: 'REMOVE_FILE', payload: fileId });
