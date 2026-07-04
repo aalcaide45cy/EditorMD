@@ -260,7 +260,7 @@ input, textarea {
 }
 
 .topbar-title {
-  font-size: 15px;
+  font-size: 1.07rem;
   font-weight: 700;
   background: linear-gradient(135deg, var(--text), var(--mauve));
   -webkit-background-clip: text;
@@ -279,7 +279,7 @@ input, textarea {
 }
 
 .topbar-file-name {
-  font-size: 13px;
+  font-size: 0.93rem;
   color: var(--subtext0);
   flex: 1;
   overflow: hidden;
@@ -295,7 +295,7 @@ input, textarea {
 .topbar-file-name.unsaved::after {
   content: ' ●';
   color: var(--peach);
-  font-size: 10px;
+  font-size: 0.7em;
   vertical-align: middle;
 }
 
@@ -313,7 +313,7 @@ input, textarea {
   gap: 6px;
   padding: 5px 10px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 0.86rem;
   font-weight: 500;
   color: var(--subtext1);
   background: transparent;
@@ -339,13 +339,13 @@ input, textarea {
 }
 
 .topbar-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 1.1em;
+  height: 1.1em;
   flex-shrink: 0;
 }
 
 .topbar-btn .shortcut {
-  font-size: 10px;
+  font-size: 0.7em;
   color: var(--overlay0);
   background: var(--surface0);
   padding: 1px 4px;
@@ -368,7 +368,7 @@ input, textarea {
 .view-toggle-btn {
   padding: 4px 8px;
   border-radius: 5px;
-  font-size: 11px;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--overlay1);
   transition: all var(--transition);
@@ -416,7 +416,7 @@ input, textarea {
 }
 
 .sidebar-header-title {
-  font-size: 11px;
+  font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -459,7 +459,7 @@ input, textarea {
   border-radius: 6px;
   padding: 5px 8px 5px 28px;
   color: var(--text);
-  font-size: 12px;
+  font-size: 0.86rem;
   outline: none;
   transition: border-color var(--transition);
   position: relative;
@@ -501,7 +501,7 @@ input, textarea {
   gap: 5px;
   padding: 6px 8px;
   border-radius: 7px;
-  font-size: 11px;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--subtext0);
   background: var(--surface0);
@@ -517,8 +517,8 @@ input, textarea {
 }
 
 .sidebar-quick-btn svg {
-  width: 13px;
-  height: 13px;
+  width: 1.1em;
+  height: 1.1em;
   flex-shrink: 0;
 }
 
@@ -530,7 +530,7 @@ input, textarea {
 }
 
 .sidebar-section-label {
-  font-size: 10px;
+  font-size: 0.71rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -578,7 +578,7 @@ input, textarea {
 }
 
 .file-item-name {
-  font-size: 13px;
+  font-size: 0.93rem;
   color: var(--subtext1);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -592,7 +592,7 @@ input, textarea {
 }
 
 .file-item-path {
-  font-size: 10px;
+  font-size: 0.71rem;
   color: var(--overlay0);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -928,7 +928,7 @@ input, textarea {
 .cm-editor {
   height: 100%;
   font-family: var(--editor-font) !important;
-  font-size: var(--ui-font-size, 14px) !important;
+  font-size: 14px !important;
   background: var(--editor-bg) !important;
 }
 
@@ -1009,7 +1009,7 @@ input, textarea {
 .markdown-body {
   color: var(--text);
   line-height: 1.75;
-  font-size: calc(1.07 * var(--ui-font-size, 14px));
+  font-size: 15px;
   font-family: var(--ui-font);
 }
 
@@ -1173,7 +1173,7 @@ input, textarea {
   padding: 0 12px;
   gap: 16px;
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 0.78rem;
   color: var(--overlay0);
   overflow: hidden;
 }
@@ -1186,8 +1186,8 @@ input, textarea {
 }
 
 .statusbar-item svg {
-  width: 11px;
-  height: 11px;
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .statusbar-item.highlight {
@@ -1216,7 +1216,7 @@ input, textarea {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 8px 12px;
-  font-size: 11px;
+  font-size: 0.78rem;
   color: var(--overlay1);
   display: flex;
   align-items: center;
